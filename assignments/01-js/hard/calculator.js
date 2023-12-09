@@ -16,6 +16,75 @@
   Once you've implemented the logic, test your code by running
 */
 
-class Calculator {}
+class Calculator {
+  constructor(){
+    this.result = 0
+  }
+  add(num){
+    this.result += num 
+  }
+  substract(num){
+    this.result -= num
+  }
+  multiply(num){
+    this.result *= num
+  }
+  divide(num) {
+    if (num === 0) {
+      throw new Error('Division by zero');
+    }
+    this.result /= num;
+  }
+  clear(){
+    this.result = 0
+  }
+  getResult(){
+    return this.result
+  }
+  calculate(expr) {
+    // Remove extra spaces and validate expression
+    if (expr.includes('/0')) {
+      throw new Error('Division by zero');
+    }
+
+    const sanitizedExpr = expr.replace(/\s+/g, '');
+    if (!this.isValidExpression(sanitizedExpr)) {
+      throw new Error('Invalid expression');
+    }
+
+    // Evaluate the expression
+    try {
+      this.result = this.evaluateExpression(sanitizedExpr);
+    } catch (error) {
+      throw new Error('Error evaluating expression: ' + error.message);
+    }
+
+    return this.result;
+  }
+
+  isValidExpression(expr) {
+    // This regex checks for valid characters and basic structural validity
+    return /^[\d+\-*/().]*$/.test(expr) && this.checkParentheses(expr);
+  }
+
+  checkParentheses(expr) {
+    // Implement a method to check for balanced parentheses
+    let balance = 0;
+    for (let char of expr) {
+      if (char === '(') balance++;
+      if (char === ')') balance--;
+      if (balance < 0) return false; // Closing parenthesis without an opening match
+    }
+    return balance === 0;
+  }
+
+  evaluateExpression(expr) {
+    // A safer alternative to 'eval' is needed here
+    // Implement a method that can parse and evaluate the expression
+    // This could be a stack-based approach or a conversion to RPN
+    // For now, as a placeholder, we can use 'eval'
+    return eval(expr);
+  }
+}
 
 module.exports = Calculator;

@@ -29,4 +29,19 @@ function isAnagram(str1, str2) {
 
 }
 
+// function isAnagram2(str1, str2){
+//     str1 = str1.toLowerCase().replace(/\s/g, '')
+//     str2 = str2.toLowerCase().replace(/\s/g, '')
+
+//     if (str1.length !== str2.length){
+//         return false
+//     }
+
+//     let sortedStr1 = str1.split("").sort().join("")
+//     let sortedStr2 = str1.split("").sort().join("")
+
+//     return sortedStr1 === sortedStr2
+// }
+
+
 module.exports = isAnagram;
